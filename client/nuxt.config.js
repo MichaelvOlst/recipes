@@ -42,7 +42,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.API_URL,
-    credentials: true
+    // credentials: true
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -62,10 +62,23 @@ export default {
 
   auth: {
     strategies: {
-      'laravelSanctum': {
-        provider: 'laravel/sanctum',
-        url: 'http://localhost:8000'
-      },
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: process.env.API_URL + '/api/auth/login', method: 'post' },
+          logout: { url: process.env.API_URL + '/api/auth/logout', method: 'post' },
+          user: { url: process.env.API_URL + '/api/auth/user', method: 'get' }
+        }
+      }
     },
     redirect: {
       login: '/auth/login',

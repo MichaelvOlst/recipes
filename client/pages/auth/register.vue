@@ -20,14 +20,14 @@
       </form>
       <NuxtLink to="/auth/login">
         <span class="block  p-5 text-center text-gray-800  text-xs ">Already have an account?</span>
-      </NuxtLink>            
+      </NuxtLink>        
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  auth: false,
+  auth: 'guest',
 
   data() {
     return {
@@ -43,12 +43,13 @@ export default {
   methods: {
     async register () {
       try {
-        await this.$axios.post('api/auth/register', this.form)
+        const response = await this.$axios.post('api/auth/register', this.form)
+        this.$auth.setUserToken(response.data.access_token)
+        // console.log(response.data);
+        this.$router.push('/')
       } catch(e) {
         this.error = e.response.data.message
-      }
-
-      this.$router.push('/auth/login');
+      }      
     }
   }
 }

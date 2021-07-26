@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  auth: false,
+  auth: 'guest',
 
   data() {
     return {
@@ -40,7 +40,6 @@ export default {
 
   methods: {
     async login () {
-
       try {
         await this.$axios.post('api/auth/login', this.form)
       } catch(e) {
