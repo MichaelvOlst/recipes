@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <Layout>
     recipes
-  </div>
+  </Layout>
 </template>
 
 <script>
